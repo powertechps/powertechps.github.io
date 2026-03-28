@@ -1,0 +1,206 @@
+/* شبكة التصنيفات (Grid) */
+.main-categories-grid {
+    padding: 50px 0;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+    margin-bottom: 50px;
+}
+
+.main-categories-grid h2 {
+    color: #002c52;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+/* الكرت الفردي (Card) */
+.main-category-card {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 40px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.main-category-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+.main-category-card i { font-size: 4rem; color: #007bff; margin-bottom: 20px; }
+.main-category-card h3 { font-size: 1.8rem; color: #0056b3; margin-bottom: 15px; }
+.main-category-card p { font-size: 1.1rem; color: #666; }
+
+/* ========================================= */
+/* تصميم بطاقات المنتجات الاحترافية (Pro Card) */
+/* ========================================= */
+
+/* حاوية البطاقة الأساسية */
+.pro-product-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* التأثير السحري عند مرور الماوس */
+.pro-product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    border-color: #0d6efd; /* إطار أزرق خفيف */
+}
+
+/* حاوية الصورة مع تأثير التقريب */
+.pro-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.pro-card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* يحافظ على أبعاد الصورة بدون قص */
+    transition: transform 0.5s ease;
+}
+
+.pro-product-card:hover .pro-card-image-wrapper img {
+    transform: scale(1.08); /* تقريب ناعم للصورة */
+}
+
+/* شارة القسم العائمة (مثلاً: إلكترونيات) */
+.pro-category-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}
+
+/* منطقة النصوص أسفل الصورة */
+.pro-card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.pro-product-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.pro-product-desc {
+    font-size: 0.85rem;
+    color: #636e72;
+    margin-bottom: 15px;
+    flex-grow: 1; /* يدفع السعر والزر لأسفل البطاقة دائماً */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* يقص النص الزائد ويضع ... إذا زاد عن سطرين */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* السعر وزر الإضافة للسلة */
+.pro-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.pro-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0d6efd;
+}
+
+.pro-price span {
+    font-size: 0.8rem;
+    color: #b2bec3;
+    font-weight: normal;
+}
+
+/* زر السلة الدائري الأنيق */
+.pro-add-btn {
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+/* ========================================= */
+/* إضافات التصميم الجديد (نجوم وخصومات)      */
+/* ========================================= */
+
+/* 1. شارة الخصم الحمراء */
+.pro-discount-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px; /* في الزاوية المعاكسة لاسم القسم */
+    background: #ff3b30; /* لون أحمر جذاب */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+}
+
+/* 2. النجوم الذهبية */
+.pro-rating {
+    color: #ffc107; /* لون ذهبي */
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+/* الرقم بجانب النجوم */
+.pro-rating span.rating-count {
+    color: #b2bec3;
+    font-size: 0.75rem;
+    margin-right: 6px; /* مسافة صغيرة بين النجوم والرقم */
+}
+
+/* 3. السعر القديم المشطوب */
+.pro-old-price {
+    text-decoration: line-through; /* خط يشطب السعر */
+    color: #b2bec3; /* لون رمادي باهت */
+    font-size: 0.9rem;
+    margin-left: 8px; /* مسافة بينه وبين السعر الجديد */
+    font-weight: normal;
+}
+
+.pro-add-btn:hover {
+    background: #0b5ed7;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}

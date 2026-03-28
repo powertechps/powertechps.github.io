@@ -1,0 +1,331 @@
+
+/* التنسيقات العامة للموقع */
+body {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* تنسيق القسم الترحيبي (Hero Section) */
+.hero-section {
+    background: linear-gradient(135deg, #005a9c 0%, #007bff 100%);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    border-radius: 0 0 80px 80px;
+    margin-bottom: 60px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section h1 { font-size: 4rem; font-weight: 700; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
+.hero-section p { font-size: 1.7rem; opacity: 0.9; }
+.hero-section .btn { background-color: #28a745; border-color: #28a745; font-size: 1.3rem; padding: 12px 30px; border-radius: 30px; transition: all 0.3s ease; margin: 0 10px; }
+.hero-section .btn-secondary { background-color: transparent; border: 2px solid white; color: white; }
+.hero-section .btn:hover { background-color: #218838; border-color: #1e7e34; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+.hero-section .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.2); border-color: white; }
+
+/* قسم اتصل بنا (CTA) */
+.cta-section { background: linear-gradient(90deg, #0056b3 0%, #007bff 100%); color: white; padding: 60px 0; text-align: center; border-radius: 20px; margin: 50px 0; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+.cta-section .btn { background-color: #28a745; border-color: #28a745; padding: 12px 30px; font-size: 1.1rem; border-radius: 25px; }
+.cta-section .btn:hover { background-color: #218838; border-color: #1e7e34; }
+
+/* التذييل (Footer) */
+.main-footer { background-color: #343a40; color: white; padding: 40px 0; font-size: 0.95rem; }
+.main-footer h5 { color: #007bff; margin-bottom: 20px; font-size: 1.2rem; }
+.main-footer ul { list-style: none; padding: 0; }
+.main-footer a { color: #ccc; transition: color 0.3s ease; text-decoration: none; }
+.main-footer a:hover { color: #007bff; }
+.social-icons a { color: white; margin-left: 10px; font-size: 1.5rem; }
+.social-icons a:hover { color: #007bff; }
+.copyright { text-align: center; padding-top: 20px; border-top: 1px solid #495057; margin-top: 20px; }
+
+/* الأزرار العائمة (سلة و واتساب) */
+.floating-cart-btn, .floating-whatsapp-btn {
+    position: fixed; right: 25px; z-index: 1050; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, background-color 0.3s ease; border: none; cursor: pointer;
+}
+.floating-cart-btn { bottom: 25px; background-color: #007bff; }
+.floating-cart-btn:hover { transform: scale(1.1); background-color: #0056b3; }
+.floating-whatsapp-btn { bottom: 95px; background-color: #25D366; }
+.floating-whatsapp-btn:hover { transform: scale(1.1); background-color: #128C7E; }
+.floating-cart-btn i, .floating-whatsapp-btn i { font-size: 1.8rem; }
+
+.cart-badge {
+    position: absolute; top: 5px; right: 5px; background-color: #dc3545; color: white;
+    font-size: 0.8rem; font-weight: bold; padding: 3px 8px; border-radius: 50%; border: 2px solid white;
+}
+
+/* التجاوب مع الشاشات الصغيرة (Responsive) */
+@media (max-width: 768px) {
+    .hero-section { padding: 60px 0; }
+    .hero-section h1 { font-size: 2.5rem; }
+    .hero-section p { font-size: 1.2rem; }
+    .floating-cart-btn { width: 50px; height: 50px; right: 15px; bottom: 15px; }
+    .floating-whatsapp-btn { width: 50px; height: 50px; right: 15px; bottom: 80px; }
+    .floating-cart-btn i, .floating-whatsapp-btn i { font-size: 1.5rem; }
+}
+/* ========================================= */
+/* تصميم شريط الأقسام (Horizontal Scroll)    */
+/* ========================================= */
+
+.modern-categories {
+    border-radius: 15px;
+}
+
+.category-scroll-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto; /* السماح بالتمرير الأفقي */
+    padding-bottom: 15px;
+    padding-top: 10px;
+    scroll-behavior: smooth;
+    
+    /* إخفاء شريط التمرير (Scrollbar) لجمالية أفضل */
+    scrollbar-width: none; /* فايرفوكس */
+    -ms-overflow-style: none; /* إيدج وإنترنت إكسبلورر */
+}
+
+/* إخفاء شريط التمرير في كروم وسفاري */
+.category-scroll-container::-webkit-scrollbar {
+    display: none; 
+}
+
+/* تصميم الزر (القسم) الواحد */
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 90px; /* عرض ثابت لكل قسم */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7; /* شفافية خفيفة للأقسام غير المحددة */
+}
+
+/* التأثير عند مرور الماوس أو القسم المختار */
+.category-item:hover, 
+.category-item.active {
+    opacity: 1;
+    transform: translateY(-5px); /* يرتفع للأعلى قليلاً */
+}
+
+/* الدائرة التي تحتوي على الصورة */
+.category-icon {
+    width: 75px;
+    height: 75px;
+    background: #ffffff;
+    border-radius: 50%; /* دائرة مثالية */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* إعدادات الصورة داخل الدائرة */
+.category-icon img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+/* أيقونة قسم "الكل" */
+.category-icon i {
+    font-size: 28px;
+    color: #0d6efd;
+}
+
+/* تمييز القسم النشط (المختار) بلون مختلف */
+.category-item.active .category-icon {
+    border-color: #0d6efd;
+    background: #e7f1ff;
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.2);
+}
+
+/* نص اسم القسم */
+.category-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2d3436;
+    text-align: center;
+    white-space: nowrap; /* يمنع نزول النص لسطرين */
+}
+
+/* ========================================= */
+/* إشعارات السلة (Toast) وعداد السلة         */
+/* ========================================= */
+
+/* الإشعار المنبثق الأنيق */
+.custom-toast {
+    visibility: hidden;
+    min-width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 30px;
+    padding: 12px 20px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%) translateY(20px);
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.custom-toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    bottom: 40px;
+}
+
+.custom-toast.success { background-color: #0d6efd; } /* لون أزرق جذاب */
+.custom-toast.error { background-color: #dc3545; } /* لون أحمر للخطأ */
+
+/* الدائرة الحمراء (عداد السلة) في الهيدر */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #ff3b30;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(255, 59, 48, 0.4);
+    display: none; /* مخفي افتراضياً */
+}
+
+/* يجب أن يكون الزر الأب الذي يحتوي على أيقونة السلة في الـ HTML هكذا */
+.nav-cart-wrapper {
+    position: relative;
+    display: inline-block;
+}
+/* ========================================= */
+/* تأثير الهيكل العظمي (Skeleton Loading) */
+/* ========================================= */
+@keyframes shimmer {
+    0% { background-position: -468px 0; }
+    100% { background-position: 468px 0; }
+}
+
+.skeleton {
+    background: #f6f7f8;
+    background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 100%;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+}
+
+.skeleton-img { height: 200px; width: 100%; border-radius: 12px 12px 0 0; }
+.skeleton-title { height: 20px; width: 80%; border-radius: 4px; margin-bottom: 10px; }
+.skeleton-category { height: 15px; width: 50%; border-radius: 4px; margin-bottom: 15px; }
+.skeleton-price { height: 25px; width: 40%; border-radius: 4px; }
+.skeleton-btn { height: 40px; width: 40px; border-radius: 50%; }
+
+
+/* ========================================= */
+/* 8. تصميم نافذة تفاصيل المنتج (Modal) والجدول التقني */
+/* ========================================= */
+.pro-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px); /* تمويه الخلفية لتركيز الانتباه */
+    z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+}
+.pro-modal-overlay.active {
+    opacity: 1; visibility: visible;
+}
+
+.pro-modal-content {
+    background: #fff;
+    width: 92%; max-width: 850px;
+    max-height: 90vh; /* لا تتجاوز طول الشاشة */
+    border-radius: 24px;
+    position: relative;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+.pro-modal-overlay.active .pro-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.pro-modal-close {
+    position: absolute; top: 15px; left: 15px; /* يسار لأنه اتجاه RTL */
+    background: #f1f2f6; border: none; width: 40px; height: 40px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: #57606f; cursor: pointer; z-index: 10;
+    transition: all 0.2s;
+}
+.pro-modal-close:hover { background: #ff4757; color: white; transform: rotate(90deg); }
+
+.pro-modal-body {
+    overflow-y: auto; /* السماح بالتمرير إذا كان الوصف طويلاً */
+    overflow-x: hidden;
+}
+
+/* تصميم جدول المواصفات التقنية (سر المهنة!) */
+.tech-table-wrapper {
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid #e9ecef;
+}
+.tech-table { width: 100%; border-collapse: collapse; }
+.tech-table th, .tech-table td { padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 0.95rem; }
+.tech-table tr:last-child th, .tech-table tr:last-child td { border-bottom: none; }
+.tech-table th { width: 45%; color: #2f3640; font-weight: 700; text-align: right; }
+.tech-table td { color: #0d6efd; font-weight: 600; text-align: left; }
+
+/* تجاوب النافذة مع الجوال */
+@media (max-width: 768px) {
+    .pro-modal-content { max-height: 95vh; border-radius: 20px 20px 0 0; margin-top: auto; transform: translateY(100%); }
+}
+/* ========================================= */
+/* ضبط حجم الشعار (Logo) في شريط التنقل      */
+/* ========================================= */
+.navbar-brand img, 
+.store-logo {
+    max-width: 150px;    /* أقصى عرض للشعار (يمكنك تعديل الرقم) */
+    height: auto;        /* الحفاظ على التناسق الطولي والعرضي */
+    max-height: 60px;    /* منع الشعار من تكبير ارتفاع شريط التنقل */
+    object-fit: contain; /* منع تمطيط أو تشويه الصورة */
+    transition: transform 0.3s ease;
+}
+
+/* تصغير الشعار قليلاً ليناسب شاشات الجوال */
+@media (max-width: 768px) {
+    .navbar-brand img, 
+    .store-logo {
+        max-width: 120px;
+        max-height: 50px;
+    }
+}

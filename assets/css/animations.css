@@ -1,0 +1,16 @@
+/* حركات الانيميشن (Animations) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* لتطبيق الحركة على أي عنصر مستقبلاً، يمكنك إضافة الكلاس fadeIn-element مثلاً */
+.fade-in-element {
+    animation: fadeIn 1s ease-in-out;
+}
