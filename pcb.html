@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب خدمات PCB</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="main.css">
+</head>
+<body style="background-color: #f4f7f6;">
+
+    <div class="pcb-hero-section text-center py-5 bg-light">
+        <div class="container">
+            <h1 class="fw-bold text-dark mb-3">خدمات تصميم وطباعة الدوائر الإلكترونية (PCB) ⚙️</h1>
+            <p class="text-muted fs-5 mb-4">حوّل أفكارك إلى لوحات حقيقية بأعلى جودة ممكنة. ارفع تفاصيل طلبك وسنقوم بالتنفيذ بأسرع وقت.</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="pcb-form-card shadow-lg p-4 p-md-5 rounded-4 bg-white">
+                    <h4 class="fw-bold border-bottom pb-3 mb-4"><i class="fas fa-file-signature text-primary"></i> تفاصيل طلب اللوحة</h4>
+                    
+                    <form id="pcbOrderForm">
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">نوع الخدمة المطلوبة <span class="text-danger">*</span></label>
+                            <select id="serviceType" class="form-select form-select-lg">
+                                <option value="طباعة فقط">طباعة فقط (لدي ملف المخطط جاهز)</option>
+                                <option value="تصميم فقط">تصميم فقط (لدي الفكرة وأحتاج المخطط)</option>
+                                <option value="تصميم وطباعة">تصميم وطباعة (من الفكرة إلى اللوحة)</option>
+                            </select>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="form-label fw-bold">عدد الطبقات (Layers)</label>
+                                <select id="layerCount" class="form-select form-select-lg" disabled style="background-color: #f8f9fa;">
+                                    <option value="1" selected>طبقة واحدة (Single Layer) - المتاح حالياً</option>
+                                    <option value="2">طبقتين (Double Layer)</option>
+                                </select>
+                                <small class="text-muted"><i class="fas fa-info-circle"></i> نعتذر، الطبقات المتعددة غير متوفرة حالياً بسبب نقص المواد الخام.</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">لون اللوحة (Solder Mask)</label>
+                                <select id="pcbColor" class="form-select form-select-lg" disabled style="background-color: #f8f9fa;">
+                                    <option value="بدون لون" selected>بدون لون (نحاس خام) - المتاح حالياً</option>
+                                    <option value="أخضر">أخضر (Green)</option>
+                                    <option value="أسود">أسود (Black)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="form-label fw-bold">الأبعاد التقريبية (سم) <span class="text-danger">*</span></label>
+                                <input type="text" id="pcbDimensions" class="form-control form-control-lg" placeholder="مثال: 5x10 سم" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">الكمية المطلوبة <span class="text-danger">*</span></label>
+                                <input type="number" id="pcbQuantity" class="form-control form-control-lg" min="1" value="1" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">تفاصيل إضافية عن المشروع (اختياري)</label>
+                            <textarea id="pcbNotes" class="form-control" rows="4" placeholder="اكتب أي ملاحظات إضافية، أو اشرح فكرة مشروعك إذا كنت تطلب تصميماً..."></textarea>
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-lg w-100 fw-bold shadow" onclick="sendPcbWhatsApp()">
+                            <i class="fab fa-whatsapp fs-4 me-2 align-middle"></i> إرسال الطلب وإرفاق الملفات عبر واتساب
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="pcb.js"></script> 
+</body>
+</html>

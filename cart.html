@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة المشتريات | إتمام الطلب</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #f8f9fa; font-family: system-ui, -apple-system, sans-serif; }
+        .cart-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .item-img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+        .qty-control { display: flex; align-items: center; background: #f8f9fa; border-radius: 8px; padding: 4px; width: fit-content; }
+        .qty-btn { width: 30px; height: 30px; border: none; background: white; border-radius: 6px; font-weight: bold; color: #333; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .qty-btn:hover { background: #e9ecef; }
+        .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-weight: bold; pointer-events: none; }
+        .btn-remove { color: #dc3545; background: #fff5f5; border: none; width: 35px; height: 35px; border-radius: 8px; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .btn-remove:hover { background: #dc3545; color: white; transform: scale(1.05); }
+        .whatsapp-btn { background-color: #25D366; color: white; border: none; font-size: 1.1rem; transition: all 0.3s ease; }
+        .whatsapp-btn:hover { background-color: #128C7E; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(37, 211, 102, 0.3); color: white;}
+        .empty-state { text-align: center; padding: 4rem 1rem; }
+        .empty-state i { font-size: 5rem; color: #dee2e6; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-light bg-white shadow-sm mb-4 py-3">
+        <div class="container">
+            <a class="navbar-brand text-primary fw-bold text-decoration-none" href="index.html">
+                <i class="fas fa-arrow-right me-2"></i> متابعة التسوق
+            </a>
+            <span class="fs-4 fw-bold text-dark"><i class="fas fa-shopping-cart text-primary me-2"></i> سلة المشتريات</span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="row g-4">
+            
+            <div class="col-lg-8">
+                <div class="card cart-card">
+                    <div class="card-body p-4" id="cart-container">
+                        </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card cart-card sticky-top" style="top: 20px;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4 pb-3 border-bottom">ملخص الطلب</h5>
+                        
+                        <div class="d-flex justify-content-between mb-4 fs-5">
+                            <span class="text-muted">الإجمالي:</span>
+                            <span class="fw-bold text-primary"><span id="total-price">0</span> <span id="currency-symbol">₪</span></span>
+                        </div>
+                        
+                        <form id="checkoutForm">
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">الاسم <span class="text-danger">*</span></label>
+                                <input type="text" id="custName" class="form-control" required placeholder="الاسم الكامل">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">رقم الجوال <span class="text-danger">*</span></label>
+                                <input type="tel" id="custPhone" class="form-control" required placeholder="05xxxxxxxx">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label small text-muted">العنوان <span class="text-danger">*</span></label>
+                                <textarea id="custAddress" class="form-control" rows="2" required placeholder="المدينة، الحي، تفاصيل إضافية"></textarea>
+                            </div>
+                            
+                            <button type="submit" id="btnSubmit" class="btn whatsapp-btn w-100 py-3 fw-bold rounded-pill">
+                                <i class="fab fa-whatsapp fs-4 me-2 align-middle"></i> إرسال الطلب واتساب
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/cart.js"></script>
+    
+    <script>
+        // دالة التهيئة (تعمل فور تحميل الصفحة)
+        document.addEventListener('DOMContentLoaded', () => {
+            // عرض العملة من ملف config
+            if(typeof CONFIG !== 'undefined' && CONFIG.currency) {
+                document.getElementById('currency-symbol').innerText = CONFIG.currency;
+            }
+            renderCartItems();
+        });
+
+        // 1. رسم المنتجات في السلة
+        function renderCartItems() {
+            const cart = getCart(); // من ملف cart.js
+            const container = document.getElementById('cart-container');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            // حالة السلة فارغة
+            if (!cart || cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h4 class="text-muted fw-bold">سلتك فارغة حالياً</h4>
+                        <p class="text-muted mb-4">أضف بعض المنتجات الرائعة للبدء!</p>
+                        <a href="index.html" class="btn btn-primary rounded-pill px-5 py-2">تصفح المتجر</a>
+                    </div>`;
+                btnSubmit.disabled = true;
+                updateTotalDisplay(0);
+                return;
+            }
+
+            // رسم المنتجات
+            btnSubmit.disabled = false;
+            let html = '';
+            let totalAmount = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+                const isLast = index === cart.length - 1;
+
+                html += `
+                <div class="d-flex align-items-center py-3 ${!isLast ? 'border-bottom' : ''}">
+                    <img src="${item.image}" class="item-img" alt="${item.name}">
+                    <div class="flex-grow-1 ms-3 pe-3">
+                        <h6 class="fw-bold mb-1">${item.name}</h6>
+                        <div class="text-muted small mb-2">${item.price} ${CONFIG.currency || '₪'} للوحدة</div>
+                        
+                        <div class="qty-control">
+                            <button type="button" class="qty-btn" onclick="modifyQuantity('${item.id}', 1, ${item.maxStock})">+</button>
+                            <input type="text" class="qty-input" value="${item.quantity}" readonly>
+                            <button type="button" class="qty-btn" onclick="modifyQuantity('${item.id}', -1, ${item.maxStock})">-</button>
+                        </div>
+                    </div>
+                    <div class="text-end d-flex flex-column align-items-end justify-content-between h-100">
+                        <button type="button" class="btn-remove mb-3" onclick="removeItemFromCart('${item.id}')" title="حذف">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <div class="fw-bold text-primary fs-5">${itemTotal.toFixed(2)}</div>
+                    </div>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+            updateTotalDisplay(totalAmount);
+        }
+
+        // 2. تحديث الكميات
+        function modifyQuantity(id, change, maxStock) {
+            let cart = getCart();
+            let itemIndex = cart.findIndex(p => p.id == id);
+            
+            if (itemIndex > -1) {
+                let newQty = cart[itemIndex].quantity + change;
+                if (newQty > 0 && newQty <= maxStock) {
+                    cart[itemIndex].quantity = newQty;
+                    saveCart(cart); // من ملف cart.js
+                    renderCartItems(); // إعادة الرسم
+                } else if (newQty > maxStock) {
+                    if(typeof showToast === 'function') showToast('نفدت الكمية المتاحة في المخزن', 'error');
+                }
+            }
+        }
+
+        // 3. حذف منتج
+        function removeItemFromCart(id) {
+            let cart = getCart();
+            cart = cart.filter(p => p.id != id);
+            saveCart(cart);
+            renderCartItems();
+            if(typeof showToast === 'function') showToast('تم الحذف من السلة', 'error');
+        }
+
+        // 4. تحديث الإجمالي في الشاشة
+        function updateTotalDisplay(total) {
+            document.getElementById('total-price').innerText = total.toFixed(2);
+        }
+
+        // 5. معالجة الإرسال للواتساب
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع تحديث الصفحة
+            
+            // التأكد من وجود إعدادات الواتساب
+            if (typeof CONFIG === 'undefined' || !CONFIG.whatsappNumber) {
+                alert("خطأ: لم يتم العثور على رقم الواتساب في الإعدادات!");
+                return;
+            }
+
+            const cart = getCart();
+            if(cart.length === 0) return;
+
+            // جلب البيانات
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const total = document.getElementById('total-price').innerText;
+            const currency = CONFIG.currency || '₪';
+
+            // تنسيق رسالة الفاتورة
+            let msg = `*🛒 طلب جديد من المتجر*\n`;
+            msg += `━━━━━━━━━━━━━━━━━━\n`;
+            
+            cart.forEach(item => {
+                msg += `▪️ ${item.quantity}x ${item.name} - ${(item.price * item.quantity).toFixed(2)} ${currency}\n`;
+            });
+            
+            msg += `━━━━━━━━━━━━━━━━━━\n`;
+            msg += `*💰 الإجمالي المطلوب:* ${total} ${currency}\n\n`;
+            msg += `*👤 بيانات التوصيل:*\n`;
+            msg += `الاسم: ${name}\n`;
+            msg += `الجوال: ${phone}\n`;
+            msg += `العنوان: ${address}\n`;
+
+            // توجيه للواتساب
+            const finalUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+            
+            // فتح الواتساب أولاً
+            window.open(finalUrl, '_blank');
+            
+            // تفريغ السلة وتوجيه للرئيسية بعد نجاح العملية
+            localStorage.removeItem('techCart');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
